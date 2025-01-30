@@ -1,0 +1,68 @@
+// Initialized construction class to hold account name, account number, balance, and password
+public class Account { 
+    private String name;
+    private int accountnum;
+    private double balance;
+    private String password; // New field for password
+
+    // Constructor to initialize account details and password
+    public Account(String name, int accountnum, double balance, String password) {
+        this.name = name;
+        this.accountnum = accountnum;
+        this.balance = balance;
+        this.password = password; // Initialize password
+    }
+
+    // Retrieval methods for name, number, and balance
+    public String getname() {
+        return name;
+    }
+    public int getnum() {
+        return accountnum;
+    }
+    public double getbalance() {
+        return balance;
+    }
+
+    // Method to authenticate user with password
+    public boolean authenticate(String inputPassword) {
+        return this.password.equals(inputPassword); // Check if input password matches
+    }
+
+    // Deposit method
+    public void deposit(double money) {
+        if (money < 0) {
+            System.out.println("No Money to Deposit");
+        } else {
+            balance += money;
+            System.out.println("Successfully Deposited");
+        }
+    }
+
+    // Withdrawal method
+    public void withdrawl(double money) {
+        if (money > 0 && money <= balance) {
+            balance -= money;
+            System.out.println("Withdrawal Successful");
+        } else {
+            System.out.println("Insufficient Balance or Invalid Amount");
+        }
+    }
+
+    // Transfer to another account method
+    public void transfer(Account weTransfer, double money) {
+        if (money > 0 && money <= balance) {
+            this.withdrawl(money);
+            weTransfer.deposit(money);
+            System.out.println("Transfer Successful");
+        } else {
+            System.out.println("Transfer Failed");
+        }
+    }
+
+    // Override toString method to display account details
+    @Override
+    public String toString() {
+        return "Account Number: " + accountnum + ", Name: " + name + ", Balance: " + balance;
+    }
+}
